@@ -1,0 +1,77 @@
+#content_page {
+	width: auto;
+	height: auto;
+	background-color:#D6D8D7;
+	
+}
+#main_menu ul {
+    list-style-type: none;
+	float:left;
+	position: fixed;
+	top:10;
+	left:5;
+    margin-left: 0;
+	margin-top:3%;
+	padding-left: 0;
+	width: 200px;
+    background-color:#EEF0EF;
+}
+#main_menu ul li{
+	
+}
+
+li a {
+	border-style:solid;
+	border-radius:15px;
+	border-width:2px;
+	border-color:#D6D8D7;
+    display: block;
+    color: #000;
+    height:90px;
+    text-decoration: none;
+	padding: 4px;
+}
+
+li a.active {
+	color: #000;
+    background-color: #D6D8D7;
+	border-radius: 15px;
+	padding: 4px;
+}
+li a:hover:not(.active) {
+	border-radius: 15px;
+    background-color:#D6D8D7;
+    color: black;
+}
+.art_box {
+	  background-image: url(../images/tlar2.png);
+      background-repeat: no-repeat;
+      height: 10px;
+      width: 9px;
+	  }
+#header {
+	height: 50px;
+	outline-style: solid;
+	outline-color: #FFA500;
+	border-width: 500px;
+}
+.art_box{
+	background-color: #FFA500;
+	background-repeat: repeat;
+	width:1740px;
+	height:50px;
+	margin-left:52px
+}
+.art_box_logo{
+	background-image: url(C:/Users/Lenovo/Desktop/Demo/medical_trial.png);
+	background-color: #FFFFFF;
+	background-repeat: no-repeat;
+	width:100px;
+	height:48px;
+}
+.sub{
+	margin-left:100%;
+	display:;
+	visibility:hidden;
+}
+
