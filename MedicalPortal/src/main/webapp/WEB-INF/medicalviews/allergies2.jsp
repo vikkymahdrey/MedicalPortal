@@ -16,16 +16,18 @@
     <title>Allergies Home</title>
     
     <link href="css/bootstrap.min.css" rel="stylesheet">
-   <link href="css/demo.css" rel="stylesheet">
+   
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link href="css/custom.css" rel="stylesheet">
     
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
     
 	<script type="text/javascript" src="js/jquery-latest.js"></script>
 	 <script src="js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
    
     
       <!-- React Application --> 
@@ -40,8 +42,12 @@
 		constructor() {
        	super();
         this.state = { data: [] };
- 				
+ 		
 		};
+
+getAllergyByName(){
+ alert("Work in progress");
+};
 
 componentDidMount(){
 fetch('http://localhost:8088/MedicalPortal/getAllergies', { 
@@ -76,58 +82,45 @@ fetch('http://localhost:8088/MedicalPortal/getAllergies', {
         
 
 		<div className="container-fluid" >
-
-				<div className="row">
+		<div className="row">
 				<div className="col-sm-12 ">
-				
-					<div className="art_box_logo">
-						<a href="adminView"><img src="images/medical_trial.png"/></a>
-				
-					</div>
+			<nav className="navbar navbar-inverse">
+				<div className="navbar-header">
+	  				<a href="adminView1"><img src="images/medical_trial.png"></img></a>
+    			</div>
 
-					<div className="art_box">
-						<div className="imgNav text-right"><b><img src="images/user_iocn_header.png" className="imgLogout"/>&nbsp;Welcome  Medical Team  &nbsp;&nbsp;&nbsp;<a href="logout"><img src="images/logout_icon_header.png" />&nbsp;Log Out</a></b></div>
-					</div>
-					
-					
-				
-				
-				
-				</div>	
-				</div>
-	<div className="col-sm-12 ">
-				
-			<div className="col-sm-12 text-right">
-					<img src="" />&nbsp;
-			</div>
-	</div>		
+    <ul className="nav navbar-nav">
+      <li><a href="adminView1"><b>Home</b></a></li>
+      <li className="dropdown"><a className="dropdown-toggle" data-toggle="dropdown" href="#"><b>Medical Reports</b><span class="caret"></span></a>
+        <ul className="dropdown-menu">
+         <li><a href="#"><span className="glyphicon glyphicon-send"><b>&nbsp;Allergies</b></span></a></li>
+          <li><a href="getMedical"><span className="glyphicon glyphicon-send"><b>&nbsp;Medications</b></span></a></li>
+        </ul>
+      </li>
+      
+	</ul>
+
+	<form onSubmit={this.getAllergyByName} className="navbar-form navbar-left">
+      <div className="form-group">
+        <input type="text" className="form-control" placeholder="Allergies Name"/>
+      </div>
+      <button type="submit" className="btn btn-primary"><i className="glyphicon glyphicon-search"></i></button>
+    </form>
+
+	 <ul className="nav navbar-nav navbar-right">
+       <li><a href="#"><span className="glyphicon glyphicon-user"></span><b> Welcome Medical Team</b></a></li>
+       <li><a href="logout"><span className="glyphicon glyphicon-log-in"></span><b>Logout</b></a></li>
+	</ul>
+
+	
+	</nav>
+
+
+	</div>
+	</div>
+
 				<div className="row " >
-							<div className="col-sm-2 ">
-								<div className="nav">
-								<ul>
-									<li className="NavBar" >
-												<a href="#" className="rowitem">My Information</a>
-											<div className="dropdown-content">
-												<a className="hreflink"><b>&nbsp;&nbsp;Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><span>John</span></a>
-												<a className="hreflink"><b>&nbsp;Age:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><span>25</span></a>
-												<a className="hreflink"><b>&nbsp;&nbsp;Gender:&nbsp;&nbsp;&nbsp;</b><span>Male</span></a>
-											</div>
-							
-									</li>
-								</ul>
-
-								<ul>
-							 		
-										<li><a  href="#" className="rowitem"><i className="material-icons" >inbox</i>Dashboard</a></li>
-
-										<li><a href="fetchAllergy"  className="rowitem"><i className="material-icons">flag</i>Allergies&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-										<li><a href="fetchMedications" className="rowitem"><i className="material-icons" >local_hospital</i>Medication</a></li>
-									
-								</ul>
-							</div>
-							</div>	
-
-							<div className="col-sm-10">
+							<div className="col-sm-12">
 								<table className="table table-striped">
 									<thead>
       									<tr>
@@ -143,11 +136,11 @@ fetch('http://localhost:8088/MedicalPortal/getAllergies', {
             					</table>
 							</div>
 				</div>
-		</div>
-	
+<Footer/>
+</div>
 	);
    }
-}
+};
 			
 class TableRow extends React.Component{
   	render() {
@@ -163,6 +156,24 @@ class TableRow extends React.Component{
 	
 };
 
+
+class Footer extends React.Component{
+  	render() {
+    return (
+ 		<div className="footer-wrap">
+					
+					<div className="row">
+					<div className="col-sm-12 text-center">
+							 <p className="text-12"><b>All Content © 2017 Unizen technologies, Inc.</b></p>
+ 					</div>
+					</div>
+					
+		</div>
+);
+ 	 }
+	
+};
+	
 
 ReactDOM.render(
   <Allergy />,

@@ -6,6 +6,7 @@
 --%>
 
 
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -15,9 +16,12 @@
     <title>Medication Home</title>
     
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/custom_siemens.css" rel="stylesheet">
+   
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link href="css/custom.css" rel="stylesheet">
+    
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     
     
 	<script type="text/javascript" src="js/jquery-latest.js"></script>
@@ -38,11 +42,11 @@
 		constructor() {
        	super();
         this.state = { data: [] };
- 				
+ 		
 		};
 
 componentDidMount(){
-fetch('http://60.243.246.122:8181/MedicalPortal/getMedication', { 
+fetch('http://localhost:8088/MedicalPortal/getMedication', { 
 	    method: 'GET',
 		headers: {'Content-Type': 'application/json'}
         }).then(function(response) {
@@ -60,7 +64,7 @@ fetch('http://60.243.246.122:8181/MedicalPortal/getMedication', {
 				//alert(JSON.parse(JSON.stringify(body)));
 		return body;
       }).catch(function(ex) {
-    	     console.log('parsing failed', ex)
+    	     console.log('parsing failed', ex);
   	  });
 
 
@@ -71,75 +75,59 @@ fetch('http://60.243.246.122:8181/MedicalPortal/getMedication', {
 
   	render() {
     return (
-         <div>
+        
 
-	<div className="wrapper">
-		<div className="header-wrap">
-			<div className="container">
-				<div className="row">
-					
-				<div className="col-sm-12 text-right">
-					<img src="images/user_iocn_header.png" />&nbsp;Welcome  Medical Team  &nbsp;&nbsp;&nbsp;<a href="logout"><img src="images/logout_icon_header.png" />&nbsp;Log Out</a>
-				</div>
-				
-				</div>
-										
-			</div>
-		</div>
-	 
-   	
- 
+		<div className="container-fluid" >
+		<div className="row">
+				<div className="col-sm-12 ">
+			<nav className="navbar navbar-inverse">
+				<div className="navbar-header">
+	  				<a href="adminView1"><img src="images/medical_trial.png"></img></a>
+    			</div>
 
-	<div className="main-page-container">
-		<div className="container">	
-		
-			<div className="row">
-				<div className="col-sm-12">
-				
-				<div className="breadcrumb-wrap">
-					<a href="adminHome"><img src="images/home.png" /></a>
-					<a href="adminHome" ><b>My Information </b></a>
-					<a href="fetchAllergies"><b>Allergies </b></a>
-					<a href="#" className="current"><b>Medication</b></a>
-										
-				</div>
-				
-				
-				</div>
-	
-			</div>
-		</div>
-		<div className="container">
-		  <div className="row">
-			<div className="col-sm-12">
-				<div className="breadcrumb-wrap">
-			<table className="table table-striped">
-				<thead>
-      				<tr>
-        				<th>MedicationName</th>
-        				<th>MedicationType</th>
-        				<th>CreatedDate</th>
-						<th>EffectiveDate</th>
-      			    </tr>
-    			</thead>
-               <tbody>
-                  {this.state.data.map((medication, i) => <TableRow key = {i} data = {medication} />)}
-               </tbody>
-            </table>
-		</div>
-</div>
-</div>
+    <ul className="nav navbar-nav">
+      <li><a href="adminView1"><b>Home</b></a></li>
+      <li className="dropdown"><a className="dropdown-toggle" data-toggle="dropdown" href="#"><b>Medical Reports</b><span class="caret"></span></a>
+        <ul className="dropdown-menu">
+          <li><a href="getAllergy"><span className="glyphicon glyphicon-send"><b>&nbsp;Allergies</b></span></a></li>
+          <li><a href="#"><span className="glyphicon glyphicon-send"><b>&nbsp;Medications</b></span></a></li>
+        </ul>
+      </li>
+      
+	</ul>
+	 <ul className="nav navbar-nav navbar-right">
+       <li><a href="#"><span className="glyphicon glyphicon-user"></span><b> Welcome Medical Team</b></a></li>
+       <li className="logout"><a href="logout"><span className="glyphicon glyphicon-log-in"></span><b>Logout</b></a></li>
+	</ul>
+	</nav>
+
+
 	</div>
 	</div>
+
+				<div className="row " >
+							<div className="col-sm-12">
+								<table className="table table-striped">
+									<thead>
+      									<tr>
+        									<th>MedicationName</th>
+        									<th>MedicationType</th>
+        									<th>CreatedDate</th>
+											<th>EffectiveDate</th>
+      			    					</tr>
+    								</thead>
+              				  			<tbody>
+                  							{this.state.data.map((allergy, i) => <TableRow key = {i} data = {allergy} />)}
+               				 		 	</tbody>
+            					</table>
+							</div>
+				</div>
+<Footer/>
 </div>
-
-
-</div>
-		
-      );
- 	 }
-	}
-
+	);
+   }
+};
+			
 class TableRow extends React.Component{
   	render() {
     return (
@@ -151,11 +139,27 @@ class TableRow extends React.Component{
          </tr>
 );
  	 }
-	};
+	
+};
 
 
-
-
+class Footer extends React.Component{
+  	render() {
+    return (
+ 		<div className="footer-wrap">
+					
+					<div className="row">
+					<div className="col-sm-12 text-center">
+							 <p className="text-12"><b>All Content © 2017 Unizen technologies, Inc.</b></p>
+ 					</div>
+					</div>
+					
+		</div>
+);
+ 	 }
+	
+};
+	
 
 ReactDOM.render(
   <Medication />,

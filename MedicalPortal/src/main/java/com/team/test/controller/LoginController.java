@@ -33,10 +33,16 @@ public class LoginController {
 		return "react";
 	}*/
 	
-	@RequestMapping(value= {"/"})
+	/*@RequestMapping(value= {"/"})
 	public String defaultURL(){
 		logger.info(" React App login request");
 		return "reactjs";
+	}*/
+	
+	@RequestMapping(value= {"/"})
+	public String defaultURL(){
+		logger.info(" React App login request");
+		return "reactnew";
 	}
 	
 	@RequestMapping(value= {"/test"})
@@ -61,6 +67,19 @@ public class LoginController {
 	public String fetchAllergies(){
 		logger.info(" React Application for view Allergies request");
 		return "allergies";
+	}
+	
+	
+	@RequestMapping(value= {"/getAllergy"},method=RequestMethod.GET)
+	public String getAllergiesHandller(){
+		logger.info(" React Application for view Allergies request");
+		return "allergies2";
+	}
+	
+	@RequestMapping(value= {"/getMedical"},method=RequestMethod.GET)
+	public String getMedicalHandller(){
+		logger.info(" React Application for view Allergies request");
+		return "medication2";
 	}
 		
 	@RequestMapping(value= {"/fetchMedications"},method=RequestMethod.GET)
@@ -92,6 +111,15 @@ public class LoginController {
 		 @RequestMapping(value= {"/adminHome"}, method=RequestMethod.GET)
 		 public ModelAndView home(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		 	      	return new ModelAndView("AdminView");
+		    	
+		 }
+		 
+		 
+		 
+		 
+		 @RequestMapping(value= {"/adminView1"}, method=RequestMethod.GET)
+		 public ModelAndView demoHandler(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		 	      	return new ModelAndView("AdminView1");
 		    	
 		}
 		 

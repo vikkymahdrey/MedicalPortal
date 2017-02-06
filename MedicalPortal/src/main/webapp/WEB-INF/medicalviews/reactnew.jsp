@@ -5,7 +5,6 @@
     Copyright  : Copyright (C) by Unizen Technologies  
 --%>
 
-
 <!DOCTYPE html>
 <html lang = "en">
 
@@ -44,7 +43,7 @@ class App extends React.Component{
 			var uname=this.refs.uname.value;
 			var pass=this.refs.pass.value;
 
-			return  fetch('http://60.243.246.122:8181/MedicalPortal/userLogin', { 
+			return  fetch('http://localhost:8088/MedicalPortal/userLogin', { 
 	    method: 'POST',
 		headers: {'Content-Type': 'application/json;charset=utf-8'},
 		body: JSON.stringify({
@@ -58,7 +57,7 @@ class App extends React.Component{
  				console.log(response.headers.get('Date'));
   				console.log(response.status);
  				console.log(response.statusText);
-          window.open('http://60.243.246.122:8181/MedicalPortal/adminHome', '_self');
+          window.open('http://localhost:8088/MedicalPortal/adminView1', '_self');
         }
       });
 

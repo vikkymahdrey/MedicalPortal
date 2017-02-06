@@ -1,9 +1,10 @@
 <%-- 
     Document   : React UI
     Created on : 25 Jan, 2017, 1:00:11 PM
-    Author     : Vikky,Vikhyat 
-    Copyright: @copyright by Unizen technologies pvt. ltd.
+    Author     : Ashok Babu S <ashok@unizentechnologies.com>
+    Copyright  : Copyright (C) by Unizen Technologies  
 --%>
+
 
 <!DOCTYPE html>
 <html lang = "en">

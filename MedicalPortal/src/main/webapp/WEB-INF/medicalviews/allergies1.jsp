@@ -1,9 +1,10 @@
 <%-- 
     Document   : React UI
-    Created on : 27 Jan, 2017, 1:00:11 PM
-    Author     : Vikky,Vikhyat 
-    Copyright: @copyright by Unizen technologies pvt. ltd.
+    Created on : 25 Jan, 2017, 1:00:11 PM
+    Author     : Ashok Babu S <ashok@unizentechnologies.com>
+    Copyright  : Copyright (C) by Unizen Technologies  
 --%>
+
 
 
 <html lang="en">
@@ -43,7 +44,7 @@
 		};
 
 componentDidMount(){
-fetch('http://60.243.246.122:8181/MedicalPortal/getAllergies', { 
+fetch('http://localhost:8088/MedicalPortal/getAllergies', { 
 	    method: 'GET',
 		headers: {'Content-Type': 'application/json'}
         }).then(function(response) {
@@ -82,7 +83,7 @@ fetch('http://60.243.246.122:8181/MedicalPortal/getAllergies', {
 					<div className="art_box_logo">
 						<a href="adminView"><img src="images/medical_trial.png"/></a>
 				
-						</div>
+					</div>
 
 					<div className="art_box">
 						<div className="imgNav text-right"><b><img src="images/user_iocn_header.png" className="imgLogout"/>&nbsp;Welcome  Medical Team  &nbsp;&nbsp;&nbsp;<a href="logout"><img src="images/logout_icon_header.png" />&nbsp;Log Out</a></b></div>
@@ -98,8 +99,8 @@ fetch('http://60.243.246.122:8181/MedicalPortal/getAllergies', {
 				
 			<div className="col-sm-12 text-right">
 					<img src="" />&nbsp;
-				</div>
-			</div>		
+			</div>
+	</div>		
 				<div className="row " >
 							<div className="col-sm-2 ">
 								<div className="nav">

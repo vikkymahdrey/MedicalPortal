@@ -75,6 +75,7 @@ public class ConsumerInstrumentController {
 			logger.errorException(e, e.getMessage());
 			responseEntity = new ResponseEntity<String>(e.getHttpStatus());
 		}
+		logger.debug("Vikky",responseEntity);
 		return responseEntity;
 	}
 	
