@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.team.test.domain.AdminUser;
 import com.team.test.domain.Allergy;
+import com.team.test.domain.Info;
 import com.team.test.domain.Medication;
 
 /**
@@ -18,6 +19,8 @@ public interface ConsumerInstrumentService {
 	public List<Medication> getMedicationInfo()throws Exception;
 
 	public AdminUser userLogin(String uname, String pass)throws Exception;
+
+	public List<Info> getInfo()throws Exception;
 	
 	
 

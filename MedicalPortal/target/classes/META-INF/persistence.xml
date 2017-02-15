@@ -10,6 +10,7 @@
 		<class>com.team.test.domain.Allergy</class>
 		<class>com.team.test.domain.Medication</class>
 		<class>com.team.test.domain.Role</class>
+		<class>com.team.test.domain.Info</class>
 		
 
 		<properties>

@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team.test.dao.AllergiesDao;
+import com.team.test.dao.InfoDao;
 import com.team.test.dao.MedicationDao;
 import com.team.test.dao.UserLoginDao;
 import com.team.test.domain.AdminUser;
 import com.team.test.domain.Allergy;
+import com.team.test.domain.Info;
 import com.team.test.domain.Medication;
 import com.team.test.logger.MightyLogger;
 import com.team.test.service.ConsumerInstrumentService;
@@ -34,6 +36,9 @@ public class ConsumerInstrumentServiceImpl implements ConsumerInstrumentService 
 	@Autowired
 	private UserLoginDao userLoginDao;
 	
+	@Autowired
+	private InfoDao infoDao;
+	
 		
 	
 	public List<Allergy> getAllergiesInfo() throws Exception {
@@ -49,6 +54,12 @@ public class ConsumerInstrumentServiceImpl implements ConsumerInstrumentService 
 
 	public AdminUser userLogin(String loginId, String password) throws Exception {
 		return userLoginDao.getUserLogin(loginId, password);
+	}
+
+
+	
+	public List<Info> getInfo() throws Exception {
+		return infoDao.getInfo();
 	}
 
 	
