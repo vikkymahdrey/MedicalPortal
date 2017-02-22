@@ -42,11 +42,11 @@
 		};
 
 componentDidMount(){
-fetch('http://60.243.246.122:8181/MedicalPortal/getAllergies', { 
+fetch('http://localhost:8080/MedicalPortal/getAllergies', { 
 	    method: 'GET',
 		headers: {'Content-Type': 'application/json'}
         }).then(function(response) {
-
+				alert("hii");
 				console.log(response.headers.get('Content-Type'));
  				console.log(response.headers.get('Date'));
   				console.log(response.status);

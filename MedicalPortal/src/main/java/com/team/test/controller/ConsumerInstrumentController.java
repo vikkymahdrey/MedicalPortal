@@ -18,6 +18,7 @@ import com.team.test.domain.AdminUser;
 import com.team.test.domain.Allergy;
 import com.team.test.domain.Info;
 import com.team.test.domain.Medication;
+import com.team.test.domain.Rowindex;
 import com.team.test.exception.MightyAppException;
 import com.team.test.logger.MightyLogger;
 import com.team.test.service.ConsumerInstrumentService;
@@ -138,52 +139,565 @@ public class ConsumerInstrumentController {
 	}
 	
 	
-	@RequestMapping(value = "/getInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> getInfoHandler() throws Exception {
+	@RequestMapping(value = "/getISO4", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getISO4Handler() throws Exception {
 		logger.debug("IN GET getInfo");
 		ResponseEntity<String> responseEntity = null;
-		JSONArray jsonarray = new JSONArray();
+		
 				
-		try {		
-			List<Info> infoList=consumerInstrumentServiceImpl.getInfo();
-			if(infoList!=null && !infoList.isEmpty()){
-				for(Info info : infoList){
-					JSONObject rObj = new JSONObject();
-					rObj.put("ID", info.getId());
-					rObj.put("ISO4", info.getIso4());
-					rObj.put("ISO6",info.getIso6());
-					rObj.put("ISO14", info.getIso14());
-					rObj.put("NAS2-5", info.getNas2_5());
-					rObj.put("NAS5-15", info.getNas5_15());
-					rObj.put("NAS15-25",info.getNas15_25());
-					rObj.put("NAS25+", info.getNas25_());
-					rObj.put("MAX", info.getMax_());
-					rObj.put("Drive", info.getDrive());
-					rObj.put("Temp", info.getTemp());
-					rObj.put("Sat", info.getSat());
-					rObj.put("Date", info.getDated());
-					rObj.put("Time",info.getTime());
+		try {
+			int indexVal=0;
+			Rowindex index=null;
+			List<Rowindex> indexList=consumerInstrumentServiceImpl.getIndexVals();
+			logger.debug("SizeindexList",indexList);
+			if(indexList!=null && !indexList.isEmpty()){
+				logger.debug("insideSizeindexList",indexList.size());
+				index=indexList.get(0);
+				indexVal=Integer.parseInt(index.getRowindexcol());
 					
-						jsonarray.put(rObj);
+			
+				JSONObject json=null;	
+					List<Info> infoList=consumerInstrumentServiceImpl.getInfo();
+		               if(infoList!=null && !infoList.isEmpty()){
+		            	   if(infoList.size()>indexVal){
+							 Info info=infoList.get(indexVal);
+							   json = new JSONObject();
+							   json.put("ISO4", info.getIso4());
+							       		indexVal=indexVal+1;
+							    		index.setRowindexcol(String.valueOf(indexVal));
+							    		consumerInstrumentServiceImpl.update(index);
+		               		}else{
+		               				index.setRowindexcol("0");
+						    		consumerInstrumentServiceImpl.update(index);
+		               		}	
+						}
+						
+				if(json!=null){
+					String response = json.toString();
+					responseEntity = new ResponseEntity<String>(response, HttpStatus.OK);
+				}else{
+					responseEntity = new ResponseEntity<String>("list over", HttpStatus.EXPECTATION_FAILED);
 				}
-				String response = jsonarray.toString();
-				responseEntity = new ResponseEntity<String>(response, HttpStatus.OK);
 			}else{
-				
-				responseEntity = new ResponseEntity<String>(HttpStatus.EXPECTATION_FAILED);
+				responseEntity = new ResponseEntity<String>("Index not defined", HttpStatus.BAD_REQUEST);
 			}
 			
 		}catch(MightyAppException e) {
 			logger.errorException(e, e.getMessage());
-			String response = JsonUtil.objToJson(jsonarray);
-			responseEntity = new ResponseEntity<String>(response, e.getHttpStatus());
+		 	responseEntity = new ResponseEntity<String>(e.getHttpStatus());
 		}
-		logger.debug("JSonarray",jsonarray);
+		
+		return responseEntity;
+	}
+	
+	
+	
+	@RequestMapping(value = "/getISO6", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getISO6andler() throws Exception {
+		logger.debug("IN GET getInfo");
+		ResponseEntity<String> responseEntity = null;
+		
+				
+		try {
+			int indexVal=0;
+			Rowindex index=null;
+			List<Rowindex> indexList=consumerInstrumentServiceImpl.getIndexVals();
+			if(indexList!=null && !indexList.isEmpty()){
+				index=indexList.get(0);
+				indexVal=Integer.parseInt(index.getRowindexcol());
+					
+			
+				JSONObject json=null;	
+					List<Info> infoList=consumerInstrumentServiceImpl.getInfo();
+		               if(infoList!=null && !infoList.isEmpty()){
+		            	   if(infoList.size()>indexVal){
+							 Info info=infoList.get(indexVal);
+							   json = new JSONObject();
+							   json.put("ISO6", info.getIso6());
+							       		indexVal=indexVal+1;
+							    		index.setRowindexcol(String.valueOf(indexVal));
+							    		consumerInstrumentServiceImpl.update(index);
+		               		}else{
+		               				index.setRowindexcol("0");
+						    		consumerInstrumentServiceImpl.update(index);
+		               		}	
+						}
+						
+				if(json!=null){
+					String response = json.toString();
+					responseEntity = new ResponseEntity<String>(response, HttpStatus.OK);
+				}else{
+					responseEntity = new ResponseEntity<String>("list over", HttpStatus.EXPECTATION_FAILED);
+				}
+			}else{
+				responseEntity = new ResponseEntity<String>("Index not defined", HttpStatus.BAD_REQUEST);
+			}
+			
+		}catch(MightyAppException e) {
+			logger.errorException(e, e.getMessage());
+		 	responseEntity = new ResponseEntity<String>(e.getHttpStatus());
+		}
+		
+		return responseEntity;
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "/getISO14", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getISO14Handler() throws Exception {
+		logger.debug("IN GET getInfo");
+		ResponseEntity<String> responseEntity = null;
+		
+				
+		try {
+			int indexVal=0;
+			Rowindex index=null;
+			List<Rowindex> indexList=consumerInstrumentServiceImpl.getIndexVals();
+			if(indexList!=null && !indexList.isEmpty()){
+				index=indexList.get(0);
+				indexVal=Integer.parseInt(index.getRowindexcol());
+					
+			
+				JSONObject json=null;	
+					List<Info> infoList=consumerInstrumentServiceImpl.getInfo();
+		               if(infoList!=null && !infoList.isEmpty()){
+		            	   if(infoList.size()>indexVal){
+							 Info info=infoList.get(indexVal);
+							   json = new JSONObject();
+							   json.put("ISO14", info.getIso14());
+							       		indexVal=indexVal+1;
+							    		index.setRowindexcol(String.valueOf(indexVal));
+							    		consumerInstrumentServiceImpl.update(index);
+		               		}else{
+		               				index.setRowindexcol("0");
+						    		consumerInstrumentServiceImpl.update(index);
+		               		}	
+						}
+						
+				if(json!=null){
+					String response = json.toString();
+					responseEntity = new ResponseEntity<String>(response, HttpStatus.OK);
+				}else{
+					responseEntity = new ResponseEntity<String>("list over", HttpStatus.EXPECTATION_FAILED);
+				}
+			}else{
+				responseEntity = new ResponseEntity<String>("Index not defined", HttpStatus.BAD_REQUEST);
+			}
+			
+		}catch(MightyAppException e) {
+			logger.errorException(e, e.getMessage());
+		 	responseEntity = new ResponseEntity<String>(e.getHttpStatus());
+		}
+		
+		return responseEntity;
+	}
+	
+	
+	
+	@RequestMapping(value = "/getNAS25", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getNAS25Handler() throws Exception {
+		logger.debug("IN GET getInfo");
+		ResponseEntity<String> responseEntity = null;
+		
+				
+		try {
+			int indexVal=0;
+			Rowindex index=null;
+			List<Rowindex> indexList=consumerInstrumentServiceImpl.getIndexVals();
+			if(indexList!=null && !indexList.isEmpty()){
+				index=indexList.get(0);
+				indexVal=Integer.parseInt(index.getRowindexcol());
+					
+			
+				JSONObject json=null;	
+					List<Info> infoList=consumerInstrumentServiceImpl.getInfo();
+		               if(infoList!=null && !infoList.isEmpty()){
+		            	   if(infoList.size()>indexVal){
+							 Info info=infoList.get(indexVal);
+							   json = new JSONObject();
+							   json.put("NAS2-5", info.getNas2_5());
+							       		indexVal=indexVal+1;
+							    		index.setRowindexcol(String.valueOf(indexVal));
+							    		consumerInstrumentServiceImpl.update(index);
+		               		}else{
+		               				index.setRowindexcol("0");
+						    		consumerInstrumentServiceImpl.update(index);
+		               		}	
+						}
+						
+				if(json!=null){
+					String response = json.toString();
+					responseEntity = new ResponseEntity<String>(response, HttpStatus.OK);
+				}else{
+					responseEntity = new ResponseEntity<String>("list over", HttpStatus.EXPECTATION_FAILED);
+				}
+			}else{
+				responseEntity = new ResponseEntity<String>("Index not defined", HttpStatus.BAD_REQUEST);
+			}
+			
+		}catch(MightyAppException e) {
+			logger.errorException(e, e.getMessage());
+		 	responseEntity = new ResponseEntity<String>(e.getHttpStatus());
+		}
+		
+		return responseEntity;
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "/getNAS515", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getNAS515Handler() throws Exception {
+		logger.debug("IN GET getInfo");
+		ResponseEntity<String> responseEntity = null;
+		
+				
+		try {
+			int indexVal=0;
+			Rowindex index=null;
+			List<Rowindex> indexList=consumerInstrumentServiceImpl.getIndexVals();
+			if(indexList!=null && !indexList.isEmpty()){
+				index=indexList.get(0);
+				indexVal=Integer.parseInt(index.getRowindexcol());
+					
+			
+				JSONObject json=null;	
+					List<Info> infoList=consumerInstrumentServiceImpl.getInfo();
+		               if(infoList!=null && !infoList.isEmpty()){
+		            	   if(infoList.size()>indexVal){
+							 Info info=infoList.get(indexVal);
+							   json = new JSONObject();
+							   json.put("NAS5-15", info.getNas5_15());
+							       		indexVal=indexVal+1;
+							    		index.setRowindexcol(String.valueOf(indexVal));
+							    		consumerInstrumentServiceImpl.update(index);
+		               		}else{
+		               				index.setRowindexcol("0");
+						    		consumerInstrumentServiceImpl.update(index);
+		               		}	
+						}
+						
+				if(json!=null){
+					String response = json.toString();
+					responseEntity = new ResponseEntity<String>(response, HttpStatus.OK);
+				}else{
+					responseEntity = new ResponseEntity<String>("list over", HttpStatus.EXPECTATION_FAILED);
+				}
+			}else{
+				responseEntity = new ResponseEntity<String>("Index not defined", HttpStatus.BAD_REQUEST);
+			}
+			
+		}catch(MightyAppException e) {
+			logger.errorException(e, e.getMessage());
+		 	responseEntity = new ResponseEntity<String>(e.getHttpStatus());
+		}
+		
+		return responseEntity;
+	}
+	
+	
+	@RequestMapping(value = "/getNAS1525", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getNAS1525Handler() throws Exception {
+		logger.debug("IN GET getInfo");
+		ResponseEntity<String> responseEntity = null;
+		
+				
+		try {
+			int indexVal=0;
+			Rowindex index=null;
+			List<Rowindex> indexList=consumerInstrumentServiceImpl.getIndexVals();
+			if(indexList!=null && !indexList.isEmpty()){
+				index=indexList.get(0);
+				indexVal=Integer.parseInt(index.getRowindexcol());
+					
+			
+				JSONObject json=null;	
+					List<Info> infoList=consumerInstrumentServiceImpl.getInfo();
+		               if(infoList!=null && !infoList.isEmpty()){
+		            	   if(infoList.size()>indexVal){
+							 Info info=infoList.get(indexVal);
+							   json = new JSONObject();
+							   json.put("NAS15-25", info.getNas15_25());
+							       		indexVal=indexVal+1;
+							    		index.setRowindexcol(String.valueOf(indexVal));
+							    		consumerInstrumentServiceImpl.update(index);
+		               		}else{
+		               				index.setRowindexcol("0");
+						    		consumerInstrumentServiceImpl.update(index);
+		               		}	
+						}
+						
+				if(json!=null){
+					String response = json.toString();
+					responseEntity = new ResponseEntity<String>(response, HttpStatus.OK);
+				}else{
+					responseEntity = new ResponseEntity<String>("list over", HttpStatus.EXPECTATION_FAILED);
+				}
+			}else{
+				responseEntity = new ResponseEntity<String>("Index not defined", HttpStatus.BAD_REQUEST);
+			}
+			
+		}catch(MightyAppException e) {
+			logger.errorException(e, e.getMessage());
+		 	responseEntity = new ResponseEntity<String>(e.getHttpStatus());
+		}
+		
+		return responseEntity;
+	}
+	
+	
+	
+	@RequestMapping(value = "/getNAS25Plus", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getNAS25PlusHandler() throws Exception {
+		logger.debug("IN GET getInfo");
+		ResponseEntity<String> responseEntity = null;
+		
+				
+		try {
+			int indexVal=0;
+			Rowindex index=null;
+			List<Rowindex> indexList=consumerInstrumentServiceImpl.getIndexVals();
+			if(indexList!=null && !indexList.isEmpty()){
+				index=indexList.get(0);
+				indexVal=Integer.parseInt(index.getRowindexcol());
+					
+			
+				JSONObject json=null;	
+					List<Info> infoList=consumerInstrumentServiceImpl.getInfo();
+		               if(infoList!=null && !infoList.isEmpty()){
+		            	   if(infoList.size()>indexVal){
+							 Info info=infoList.get(indexVal);
+							   json = new JSONObject();
+							   json.put("NAS25+", info.getNas25_());
+							       		indexVal=indexVal+1;
+							    		index.setRowindexcol(String.valueOf(indexVal));
+							    		consumerInstrumentServiceImpl.update(index);
+		               		}else{
+		               				index.setRowindexcol("0");
+						    		consumerInstrumentServiceImpl.update(index);
+		               		}	
+						}
+						
+				if(json!=null){
+					String response = json.toString();
+					responseEntity = new ResponseEntity<String>(response, HttpStatus.OK);
+				}else{
+					responseEntity = new ResponseEntity<String>("list over", HttpStatus.EXPECTATION_FAILED);
+				}
+			}else{
+				responseEntity = new ResponseEntity<String>("Index not defined", HttpStatus.BAD_REQUEST);
+			}
+			
+		}catch(MightyAppException e) {
+			logger.errorException(e, e.getMessage());
+		 	responseEntity = new ResponseEntity<String>(e.getHttpStatus());
+		}
+		
+		return responseEntity;
+	}
+	
+	
+	
+	@RequestMapping(value = "/getMAX", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getMAX() throws Exception {
+		logger.debug("IN GET getInfo");
+		ResponseEntity<String> responseEntity = null;
+		
+				
+		try {
+			int indexVal=0;
+			Rowindex index=null;
+			List<Rowindex> indexList=consumerInstrumentServiceImpl.getIndexVals();
+			if(indexList!=null && !indexList.isEmpty()){
+				index=indexList.get(0);
+				indexVal=Integer.parseInt(index.getRowindexcol());
+					
+			
+				JSONObject json=null;	
+					List<Info> infoList=consumerInstrumentServiceImpl.getInfo();
+		               if(infoList!=null && !infoList.isEmpty()){
+		            	   if(infoList.size()>indexVal){
+							 Info info=infoList.get(indexVal);
+							   json = new JSONObject();
+							   json.put("MAX+", info.getMax_());
+							       		indexVal=indexVal+1;
+							    		index.setRowindexcol(String.valueOf(indexVal));
+							    		consumerInstrumentServiceImpl.update(index);
+		               		}else{
+		               				index.setRowindexcol("0");
+						    		consumerInstrumentServiceImpl.update(index);
+		               		}	
+						}
+						
+				if(json!=null){
+					String response = json.toString();
+					responseEntity = new ResponseEntity<String>(response, HttpStatus.OK);
+				}else{
+					responseEntity = new ResponseEntity<String>("list over", HttpStatus.EXPECTATION_FAILED);
+				}
+			}else{
+				responseEntity = new ResponseEntity<String>("Index not defined", HttpStatus.BAD_REQUEST);
+			}
+			
+		}catch(MightyAppException e) {
+			logger.errorException(e, e.getMessage());
+		 	responseEntity = new ResponseEntity<String>(e.getHttpStatus());
+		}
+		
+		return responseEntity;
+	}
+	
+	
+	@RequestMapping(value = "/getDrive", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getDriveHandler() throws Exception {
+		logger.debug("IN GET getInfo");
+		ResponseEntity<String> responseEntity = null;
+		
+				
+		try {
+			int indexVal=0;
+			Rowindex index=null;
+			List<Rowindex> indexList=consumerInstrumentServiceImpl.getIndexVals();
+			if(indexList!=null && !indexList.isEmpty()){
+				index=indexList.get(0);
+				indexVal=Integer.parseInt(index.getRowindexcol());
+					
+			
+				JSONObject json=null;	
+					List<Info> infoList=consumerInstrumentServiceImpl.getInfo();
+		               if(infoList!=null && !infoList.isEmpty()){
+		            	   if(infoList.size()>indexVal){
+							 Info info=infoList.get(indexVal);
+							   json = new JSONObject();
+							   json.put("Drive", info.getDrive());
+							       		indexVal=indexVal+1;
+							    		index.setRowindexcol(String.valueOf(indexVal));
+							    		consumerInstrumentServiceImpl.update(index);
+		               		}else{
+		               				index.setRowindexcol("0");
+						    		consumerInstrumentServiceImpl.update(index);
+		               		}	
+						}
+						
+				if(json!=null){
+					String response = json.toString();
+					responseEntity = new ResponseEntity<String>(response, HttpStatus.OK);
+				}else{
+					responseEntity = new ResponseEntity<String>("list over", HttpStatus.EXPECTATION_FAILED);
+				}
+			}else{
+				responseEntity = new ResponseEntity<String>("Index not defined", HttpStatus.BAD_REQUEST);
+			}
+			
+		}catch(MightyAppException e) {
+			logger.errorException(e, e.getMessage());
+		 	responseEntity = new ResponseEntity<String>(e.getHttpStatus());
+		}
+		
 		return responseEntity;
 	}
  	
 	
 	@RequestMapping(value = "/getTemp", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getTempHandler() throws Exception {
+		logger.debug("IN GET getInfo");
+		ResponseEntity<String> responseEntity = null;
+		
+				
+		try {
+			int indexVal=0;
+			Rowindex index=null;
+			List<Rowindex> indexList=consumerInstrumentServiceImpl.getIndexVals();
+			if(indexList!=null && !indexList.isEmpty()){
+				index=indexList.get(0);
+				indexVal=Integer.parseInt(index.getRowindexcol());
+					
+			
+				JSONObject json=null;	
+					List<Info> infoList=consumerInstrumentServiceImpl.getInfo();
+		               if(infoList!=null && !infoList.isEmpty()){
+		            	   if(infoList.size()>indexVal){
+							 Info info=infoList.get(indexVal);
+							   json = new JSONObject();
+							   json.put("Temp", info.getTemp());
+							       		indexVal=indexVal+1;
+							    		index.setRowindexcol(String.valueOf(indexVal));
+							    		consumerInstrumentServiceImpl.update(index);
+		               		}else{
+		               				index.setRowindexcol("0");
+						    		consumerInstrumentServiceImpl.update(index);
+		               		}	
+						}
+						
+				if(json!=null){
+					String response = json.toString();
+					responseEntity = new ResponseEntity<String>(response, HttpStatus.OK);
+				}else{
+					responseEntity = new ResponseEntity<String>("list over", HttpStatus.EXPECTATION_FAILED);
+				}
+			}else{
+				responseEntity = new ResponseEntity<String>("Index not defined", HttpStatus.BAD_REQUEST);
+			}
+			
+		}catch(MightyAppException e) {
+			logger.errorException(e, e.getMessage());
+		 	responseEntity = new ResponseEntity<String>(e.getHttpStatus());
+		}
+		
+		return responseEntity;
+	}
+	
+	@RequestMapping(value = "/getSat", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getSat() throws Exception {
+		logger.debug("IN GET getInfo");
+		ResponseEntity<String> responseEntity = null;
+		
+				
+		try {
+			int indexVal=0;
+			Rowindex index=null;
+			List<Rowindex> indexList=consumerInstrumentServiceImpl.getIndexVals();
+			if(indexList!=null && !indexList.isEmpty()){
+				index=indexList.get(0);
+				indexVal=Integer.parseInt(index.getRowindexcol());
+					
+			
+				JSONObject json=null;	
+					List<Info> infoList=consumerInstrumentServiceImpl.getInfo();
+		               if(infoList!=null && !infoList.isEmpty()){
+		            	   if(infoList.size()>indexVal){
+							 Info info=infoList.get(indexVal);
+							   json = new JSONObject();
+							   json.put("Sat", info.getSat());
+							       		indexVal=indexVal+1;
+							    		index.setRowindexcol(String.valueOf(indexVal));
+							    		consumerInstrumentServiceImpl.update(index);
+		               		}else{
+		               				index.setRowindexcol("0");
+						    		consumerInstrumentServiceImpl.update(index);
+		               		}	
+						}
+						
+				if(json!=null){
+					String response = json.toString();
+					responseEntity = new ResponseEntity<String>(response, HttpStatus.OK);
+				}else{
+					responseEntity = new ResponseEntity<String>("list over", HttpStatus.EXPECTATION_FAILED);
+				}
+			}else{
+				responseEntity = new ResponseEntity<String>("Index not defined", HttpStatus.BAD_REQUEST);
+			}
+			
+		}catch(MightyAppException e) {
+			logger.errorException(e, e.getMessage());
+		 	responseEntity = new ResponseEntity<String>(e.getHttpStatus());
+		}
+		
+		return responseEntity;
+	}
+	
+	/*@RequestMapping(value = "/getTemp", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getTempHandler() throws Exception {
 		logger.debug("IN GET getTemp");
 		ResponseEntity<String> responseEntity = null;
@@ -211,7 +725,7 @@ public class ConsumerInstrumentController {
 		}
 		logger.debug("JSonarray",jsonarray);
 		return responseEntity;
-	}
+	}*/
 	
 }
 	

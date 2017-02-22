@@ -42,20 +42,22 @@
 		};
 
 componentDidMount(){
-fetch('http://60.243.246.122:8181/MedicalPortal/getMedication', { 
+fetch('http://localhost:8080/MedicalPortal/getMedication', { 
 	    method: 'GET',
 		headers: {'Content-Type': 'application/json'}
         }).then(function(response) {
-
+				alert(response);
 				console.log(response.headers.get('Content-Type'));
  				console.log(response.headers.get('Date'));
   				console.log(response.status);
  				console.log(response.statusText);
+				
        	   return response.json();
       }).then( (json) => {
-                        this.setState({data: json});
+			this.setState({data: json});
+			return json;
         }).then(function(body) {
-		     console.log(body);
+			     console.log(body);
 				//alert(eval(JSON.stringify(body)));
 				//alert(JSON.parse(JSON.stringify(body)));
 		return body;
