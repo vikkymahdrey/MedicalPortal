@@ -1,5 +1,6 @@
 package com.team.test.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.team.test.domain.Info;
 import com.team.test.logger.MightyLogger;
 import com.team.test.service.ConsumerInstrumentService;
 import com.team.test.service.LoginService;
@@ -26,6 +28,8 @@ public class LoginController {
 	@Autowired
 	private ConsumerInstrumentService consumerInstrumentService;
 	
+
+	
 	
 	/*@RequestMapping(value= {"/"})
 	public String defaultURL(){
@@ -38,6 +42,12 @@ public class LoginController {
 		logger.info(" React App login request");
 		return "reactjs";
 	}*/
+	
+	@RequestMapping(value= {"/dashboard"})
+	public String dashboard(){
+		logger.debug("Dashboard");
+		return "dashboard";
+	}
 	
 	@RequestMapping(value= {"/"})
 	public String defaultURL(){
@@ -141,7 +151,18 @@ public class LoginController {
 			}
 		 	
 		 	
-		 	
+		 	@RequestMapping(value= {"/sensor"}, method=RequestMethod.GET)
+			 public String contaminationSensorHandler(Map<String,Object> map) throws Exception{
+		 		logger.debug("Inside Sensor");
+		 		
+		 		List<Info> infoList=consumerInstrumentService.getInfo();
+				 		 if(infoList!=null && !infoList.isEmpty()){
+				 			Info info=infoList.get(infoList.size()-1);
+				 				map.put("info",info);
+				 		 }
+			 	return "dashboard";
+			    	
+			}	
 				
 
 			
