@@ -7,6 +7,7 @@ import com.team.test.domain.Allergy;
 import com.team.test.domain.Info;
 import com.team.test.domain.Medication;
 import com.team.test.domain.Rowindex;
+import com.team.test.domain.Waterconsumption;
 
 /**
  * 
@@ -26,6 +27,8 @@ public interface ConsumerInstrumentService {
 	public List<Rowindex> getIndexVals()throws Exception;
 
 	public Rowindex update(Rowindex initialIndex)throws Exception;
+
+	public List<Waterconsumption> getWaterConsumed()throws Exception;
 	
 	
 

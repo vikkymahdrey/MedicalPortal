@@ -10,11 +10,13 @@ import com.team.test.dao.InfoDao;
 import com.team.test.dao.MedicationDao;
 import com.team.test.dao.RowIndexDao;
 import com.team.test.dao.UserLoginDao;
+import com.team.test.dao.WaterConsumptionDao;
 import com.team.test.domain.AdminUser;
 import com.team.test.domain.Allergy;
 import com.team.test.domain.Info;
 import com.team.test.domain.Medication;
 import com.team.test.domain.Rowindex;
+import com.team.test.domain.Waterconsumption;
 import com.team.test.logger.MightyLogger;
 import com.team.test.service.ConsumerInstrumentService;
 
@@ -44,6 +46,9 @@ public class ConsumerInstrumentServiceImpl implements ConsumerInstrumentService 
 	@Autowired
 	private RowIndexDao rowIndexDao;
 	
+	@Autowired
+	private WaterConsumptionDao waterConsumptionDao;
+
 	public List<Allergy> getAllergiesInfo() throws Exception {
 		return allergiesDao.getAllergiesInfo();
 	}
@@ -74,6 +79,12 @@ public class ConsumerInstrumentServiceImpl implements ConsumerInstrumentService 
 
 	public Rowindex update(Rowindex initialIndex) throws Exception {
 		return rowIndexDao.save(initialIndex);		
+	}
+
+
+	
+	public List<Waterconsumption> getWaterConsumed() throws Exception {
+		return waterConsumptionDao.getWaterConsumed();
 	}
 
 	

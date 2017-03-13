@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team.test.domain.Info;
+import com.team.test.domain.Waterconsumption;
 import com.team.test.logger.MightyLogger;
 import com.team.test.service.ConsumerInstrumentService;
 import com.team.test.service.LoginService;
@@ -43,7 +44,7 @@ public class LoginController {
 		return "reactjs";
 	}*/
 	
-	@RequestMapping(value= {"/dashboard"})
+	@RequestMapping(value= {"/dashboard1"})
 	public String dashboard(){
 		logger.debug("Dashboard");
 		return "dashboard";
@@ -151,19 +152,27 @@ public class LoginController {
 			}
 		 	
 		 	
-		 	@RequestMapping(value= {"/sensor"}, method=RequestMethod.GET)
-			 public String contaminationSensorHandler(Map<String,Object> map) throws Exception{
-		 		logger.debug("Inside Sensor");
+		 	@RequestMapping(value= {"/dashboard"}, method=RequestMethod.GET)
+			 public String dashboardHandler(Map<String,Object> map) throws Exception{
+		 		logger.debug("Inside unizen dashboard");
 		 		
 		 		List<Info> infoList=consumerInstrumentService.getInfo();
 				 		 if(infoList!=null && !infoList.isEmpty()){
 				 			Info info=infoList.get(infoList.size()-1);
 				 				map.put("info",info);
 				 		 }
+				 		 
+			    List<Waterconsumption> waterconsumed=consumerInstrumentService.getWaterConsumed();
+			    				map.put("waterconsumed",waterconsumed); 
+			    				logger.debug("Size of waterconsumed",waterconsumed.size());
+			    				
+			    				
 			 	return "dashboard";
 			    	
 			}	
-				
+		 	
+		 	
+		 	
 
 			
 }

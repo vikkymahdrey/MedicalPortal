@@ -12,6 +12,7 @@
 		<class>com.team.test.domain.Role</class>
 		<class>com.team.test.domain.Info</class>
 		<class>com.team.test.domain.Rowindex</class>
+		<class>com.team.test.domain.Waterconsumption</class>
 		
 
 		<properties>
