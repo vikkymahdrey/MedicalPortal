@@ -1,0 +1,27 @@
+.imgcontainer{
+	text-align: center;
+	margin-bottom: 4%;
+	margin-right: 4%;
+	top: 0;
+	float: center;
+	
+}
+h4{
+	
+}
+body{
+	margin-left: 4%;
+}
+.container-fluid{
+	font-size: 18px;	
+	font-family: Calibri;
+	max-width: 100%;
+}
+ form{
+	 border: 3px solid #f1f1f1;
+	 margin-right: 7%;
+	 background-color: #f1f1f1;
+ }
+.psw{
+	margin-left: 10%;
+}

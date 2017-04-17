@@ -53,7 +53,7 @@ public class LoginController {
 	@RequestMapping(value= {"/"})
 	public String defaultURL(){
 		logger.info(" React App login request");
-		return "reactnew";
+		return "SignUp";
 	}
 	
 	@RequestMapping(value= {"/test"})
@@ -67,6 +67,8 @@ public class LoginController {
 		logger.info(" React Application login request");
 		return "react";
 	}
+	
+	
 	
 	@RequestMapping(value= {"/fetchAllergy"},method=RequestMethod.GET)
 	public String fetchAllergiesHandler(){

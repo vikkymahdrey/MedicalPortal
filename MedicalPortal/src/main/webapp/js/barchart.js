@@ -58,6 +58,7 @@ function BarGraph(ctx) {
 	  var barHeight;
 	  var border = 2;
 	  var ratio;
+	  
 	  var maxBarHeight;
 	  var gradient;
 	  

@@ -38,6 +38,32 @@ public class ConsumerInstrumentController {
 	
 	
 	private static final MightyLogger logger = MightyLogger.getLogger(ConsumerInstrumentController.class);
+	
+	@RequestMapping(value="/getVal",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> IoITesting(@RequestBody String received) {
+		logger.info(" /POST getVal API");
+		JSONObject obj=null;
+		ResponseEntity<String> responseEntity = null;
+		
+		try{		
+				obj=new JSONObject();
+				obj=(JSONObject)new JSONParser().parse(received);
+		}catch(Exception e){
+			logger.error("System Exception during parsing JSON",e);
+		}
+		
+				
+		try {
+			
+			logger.debug("temperature Value",obj.get("temp").toString());	
+			
+			} catch(MightyAppException e) {
+			String errorMessage = e.getMessage();
+			responseEntity = new ResponseEntity<String>(errorMessage,e.getHttpStatus());
+			logger.errorException(e, e.getMessage());
+		}
+		return responseEntity;
+	}
 
 	@RequestMapping(value = "/userLogin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> userLoginFromApp(@RequestBody String received) throws Exception  {

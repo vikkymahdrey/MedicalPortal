@@ -3,7 +3,7 @@
 $( pieChart );
 
 function pieChart() {
-
+	
   // Config settings
   var chartSizePercent = 55;                        // The chart radius relative to the canvas width/height (in percent)
   var sliceBorderWidth = 1;                         // Width (in pixels) of the border around each slice
@@ -58,8 +58,8 @@ function pieChart() {
     // Initialise some properties of the canvas and chart
     canvasWidth = canvas.width;
     canvasHeight = canvas.height;
-    centreX = canvasWidth / 2;
-    centreY = canvasHeight / 2;
+    centreX = 2*canvasWidth/3;
+    centreY = 2*canvasHeight/3 ;
     chartRadius = Math.min( canvasWidth, canvasHeight ) / 2 * ( chartSizePercent / 100 );
 
     // Grab the data from the table,
